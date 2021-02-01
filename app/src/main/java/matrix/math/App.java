@@ -3,12 +3,248 @@
  */
 package matrix.math;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import utils.Console;
 
+import java.util.Scanner;
+
+import static matrix.math.Matrix2D.*;
+
+public class App {
+    
+    private static final Scanner scanner = new Scanner(System.in);
+    
+    private static int rowsA;
+    private static int colsA;
+    private static double[][] matrixA;
+    
+    private static int rowsB;
+    private static int colsB;
+    private static double[][] matrixB;
+    
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        
+        String mode = "";
+        
+        while (!"q".equals(mode)) {
+            
+            Console.clear();
+            System.out.println("1. Add matrices");
+            System.out.println("2. Multiply matrix to a constant");
+            System.out.println("3. Multiply matrices");
+            System.out.println("4. Transpose matrix");
+            System.out.println("5. Calculate determinant");
+            System.out.println("6. Inverse matrix");
+            System.out.println("q. Exit");
+            System.out.print("\nChoose your next operation please: > ");
+            
+            mode = scanner.next().trim().toLowerCase();
+            String transposeType = "";
+            
+            try {
+                switch (mode) {
+                    case "1": {
+                        
+                        inputTwoMatrices();
+                        
+                        System.out.println("The sum of matrices is:");
+                        outputMatrix(add(matrixA, matrixB));
+                        
+                        break;
+                    }
+                    case "2": {
+                        
+                        inputMatrix();
+                        
+                        System.out.print("Enter the constant multiplier: > ");
+                        int c = scanner.nextInt();
+                        
+                        System.out.println("The multiplication result is:");
+                        outputMatrix(scale(c, matrixA));
+                        
+                        break;
+                    }
+                    case "3": {
+                        
+                        inputTwoMatrices();
+                        
+                        System.out.println("The product of matrices is:");
+                        outputMatrix(multiply(matrixA, matrixB));
+                        
+                        break;
+                    }
+                    case "4": {
+                        
+                        Console.clear();
+                        System.out.println("1. Do math transposition");
+                        System.out.println("2. Flip around anti-diagonal");
+                        System.out.println("3. Flip horizontally");
+                        System.out.println("4. Flip vertically");
+                        System.out.println("b. Back");
+                        System.out.print("Your choice: > ");
+                        
+                        transposeType = scanner.next().trim().toLowerCase();
+                        
+                        if ("b".equals(transposeType)) {
+                            System.out.println();
+                            break;
+                        }
+                        if (Integer.parseInt(transposeType) >= 1 && Integer.parseInt(transposeType) <= 4) {
+                            inputMatrix();
+                        } else {
+                            System.out.println("No such operation");
+                            break;
+                        }
+                        
+                        System.out.println("The result is:");
+                        switch (transposeType) {
+                            case "1" -> outputMatrix(transpose(matrixA));
+                            case "2" -> outputMatrix(antiTranspose(matrixA));
+                            case "3" -> outputMatrix(horizontalFlip(matrixA));
+                            case "4" -> outputMatrix(verticalFlip(matrixA));
+                        }
+                        break;
+                    }
+                    case "5": {
+                        
+                        if (!inputSquareMatrix()) {
+                            System.out.println("Wrong matrix dimensions. The matrix should be square for this kind of operations.");
+                            waitUserResponse();
+                            continue;
+                        }
+                        
+                        System.out.println("The determinant is equal to:");
+                        System.out.println(determinant(matrixA));
+                        
+                        break;
+                    }
+                    case "6": {
+                        
+                        if (!inputSquareMatrix()) {
+                            System.out.println("Wrong matrix dimensions. The matrix should be square for this kind of operations.");
+                            waitUserResponse();
+                            continue;
+                        }
+                        
+                        System.out.println("The inverse matrix is:");
+                        outputMatrix(inverse(matrixA));
+                        
+                        break;
+                    }
+                    case "q":
+                        System.out.println("Bye-bye");
+                    
+                    default:
+                        System.out.println("No such operation.");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Wrong input. Maybe mistyping? Try again.");
+//                System.out.println(e.getMessage());
+//                waitUserResponse();
+            }
+            if (!"b".equals(transposeType) && !"q".equals(mode)) {
+                waitUserResponse();
+            }
+        }
+        System.out.println("Bye-bye!");
+    }
+    
+    private static void waitUserResponse() {
+        System.out.println("Press [Enter] to continue...");
+        scanner.nextLine();
+        scanner.nextLine();
+    }
+    
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private static boolean inputSquareMatrix() throws NumberFormatException {
+        
+        try {
+            System.out.print("Enter the size of the matrix: > ");
+            rowsA = scanner.nextInt();
+            colsA = scanner.nextInt();
+            matrixA = new double[rowsA][colsA];
+        } catch (Exception e) {
+            throw new NumberFormatException("Error during input matrix dimensions: Maybe invalid input value.");
+        }
+        
+        if (rowsA != colsA) {
+            return false;
+        }
+        
+        System.out.println("Enter the matrix:");
+        inputMatrixValues(matrixA);
+        
+        return true;
+    }
+    
+    private static void inputMatrix() throws NumberFormatException {
+        
+        try {
+            System.out.print("Enter the size of the matrix: > ");
+            rowsA = scanner.nextInt();
+            colsA = scanner.nextInt();
+            matrixA = new double[rowsA][colsA];
+        } catch (Exception e) {
+            throw new NumberFormatException("Error during input matrix dimensions: Maybe invalid input value.");
+        }
+        
+        System.out.println("Enter the matrix:");
+        inputMatrixValues(matrixA);
+        
+    }
+    
+    private static void inputTwoMatrices() throws NumberFormatException {
+        
+        try {
+            System.out.print("Enter the size of the first matrix: > ");
+            rowsA = scanner.nextInt();
+            colsA = scanner.nextInt();
+            matrixA = new double[rowsA][colsA];
+        } catch (Exception e) {
+            throw new NumberFormatException("Error during input matrix dimensions: Maybe invalid input value.");
+        }
+        
+        System.out.println("Enter the first matrix: ");
+        inputMatrixValues(matrixA);
+        
+        try {
+            System.out.print("Enter the size of the second matrix: > ");
+            rowsB = scanner.nextInt();
+            colsB = scanner.nextInt();
+            matrixB = new double[rowsB][colsB];
+        } catch (Exception e) {
+            throw new NumberFormatException("Error during input matrix dimensions: Maybe invalid input value.");
+        }
+        
+        System.out.println("Enter the second matrix: ");
+        inputMatrixValues(matrixB);
+        
+    }
+    
+    private static void inputMatrixValues(double[][] m) throws NumberFormatException {
+        try {
+            for (int r = 0; r < m.length; r++) {
+                System.out.print("> ");
+                double[] row = new double[m[0].length];
+                for (int c = 0; c < m[0].length; c++) {
+                    row[c] = scanner.nextDouble();
+                }
+                m[r] = row;
+            }
+        } catch (Exception e) {
+            throw new NumberFormatException("Error during input matrix values: Maybe invalid input value.");
+        }
+    }
+    
+    private static void outputMatrix(double[][] m) {
+        if (m == null) {
+            System.out.println("error");
+            return;
+        }
+        for (double[] row : m) {
+            for (int c = 0; c < m[0].length; c++) {
+                System.out.printf("%.2f ", row[c]);
+            }
+            System.out.println();
+        }
     }
 }
