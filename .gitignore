@@ -35,8 +35,7 @@ gitadd-commit-push.cmd
 .sts4-cache
 
 ### IntelliJ IDEA ###
-/.idea/
-.idea/*.*
+.idea/
 *.iws
 *.iml
 *.ipr
