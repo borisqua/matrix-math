@@ -1,5 +1,5 @@
 # Matrix math
-This is a demo project with the simple implementation of the general matrix operations.
+This is a demo project with a simple implementation of general matrix operations.
 This is not the most efficient way to do these operations. 
 I choose such implementation for the sake of simplicity of understanding the general ideas.
 
