@@ -12,7 +12,7 @@ If the JDK is ready, run the command line from the root application directory:
 ```bash
 ./start_app
 ```
-or in Windows command console
+or in the Windows command console
 ```cmd
 start_app.cmd
 ```
