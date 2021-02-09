@@ -8,7 +8,7 @@ One can use this app like a simple matrix calculator with the command line inter
 
 Required JDK 14 installed.
 
-If JDK is ready, run the command line from the root application directory:
+If the JDK is ready, run the command line from the root application directory:
 ```bash
 ./start_app
 ```
