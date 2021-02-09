@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+@SuppressWarnings("unused")
 public class Matrix2D implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -172,7 +173,6 @@ public class Matrix2D implements Serializable {
         }
     }
     
-    @SuppressWarnings("DuplicatedCode")
     public double[] flat() {
         double[] vector = new double[rowsNumber * columnsNumber];
         for (int r = 0; r < rowsNumber; r++) {
@@ -587,13 +587,13 @@ public class Matrix2D implements Serializable {
         
     }
     
-    // Calculations of submatrices
-    public static double[][] generalSubmatricesCalculations(double[][] matrix, // I'm not sure about name for this method
+    // Calculations of sub-matrices
+    public static double[][] generalSubMatricesCalculations(double[][] matrix, // I'm not sure about name for this method
                                                             Function<double[][], BiFunction<Integer, Integer, Double>> operation,
                                                             boolean throwError) throws IllegalArgumentException{
         if (matrix == null) {
             if (throwError) {
-                throw new IllegalArgumentException("Submatrix calculations error: matrix can't be Null");
+                throw new IllegalArgumentException("Sub-matrix calculations error: matrix can't be Null");
             }
             return null;
         }

@@ -131,8 +131,10 @@ public class App {
                         break;
                     }
                     case "q":
+                        System.out.println();
                         System.out.println("Bye-bye");
-                    
+                        System.out.println();
+                        System.exit(0);
                     default:
                         System.out.println("No such operation.");
                 }

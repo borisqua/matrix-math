@@ -42,6 +42,6 @@ gitadd-commit-push.cmd
 !.idea/compiler.xml
 
 ### GRADLE ###
-#.gradle/
+.gradle/
 #gradle/
 #gradlew*
