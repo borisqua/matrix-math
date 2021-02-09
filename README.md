@@ -9,7 +9,7 @@ Required JDK 14 installed.
 
 If JDK is ready, run the command line from the root application directory:
 ```bash
-./start_app.sh
+./start_app
 ```
 or in Windows command console
 ```cmd
