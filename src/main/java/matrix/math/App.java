@@ -42,38 +42,35 @@ public class App {
             
             try {
                 switch (mode) {
-                    case "1": {
-                        
+                    case "1" -> {
+            
                         inputTwoMatrices();
-                        
+            
                         System.out.println("The sum of matrices is:");
                         outputMatrix(add(matrixA, matrixB));
-                        
-                        break;
+            
                     }
-                    case "2": {
-                        
+                    case "2" -> {
+            
                         inputMatrix();
-                        
+            
                         System.out.print("Enter the constant multiplier: > ");
                         int c = scanner.nextInt();
-                        
+            
                         System.out.println("The multiplication result is:");
                         outputMatrix(scale(c, matrixA));
-                        
-                        break;
+            
                     }
-                    case "3": {
-                        
+                    case "3" -> {
+            
                         inputTwoMatrices();
-                        
+            
                         System.out.println("The product of matrices is:");
                         outputMatrix(multiply(matrixA, matrixB));
-                        
-                        break;
+            
                     }
-                    case "4": {
-                        
+                    case "4" -> {
+            
                         Console.clear();
                         System.out.println("1. Do math transposition");
                         System.out.println("2. Flip around anti-diagonal");
@@ -81,9 +78,9 @@ public class App {
                         System.out.println("4. Flip vertically");
                         System.out.println("b. Back");
                         System.out.print("Your choice: > ");
-                        
+            
                         transposeType = scanner.next().trim().toLowerCase();
-                        
+            
                         if ("b".equals(transposeType)) {
                             System.out.println();
                             break;
@@ -94,7 +91,7 @@ public class App {
                             System.out.println("No such operation");
                             break;
                         }
-                        
+            
                         System.out.println("The result is:");
                         switch (transposeType) {
                             case "1" -> outputMatrix(transpose(matrixA));
@@ -102,41 +99,38 @@ public class App {
                             case "3" -> outputMatrix(horizontalFlip(matrixA));
                             case "4" -> outputMatrix(verticalFlip(matrixA));
                         }
-                        break;
                     }
-                    case "5": {
-                        
+                    case "5" -> {
+            
                         if (!inputSquareMatrix()) {
                             System.out.println("Wrong matrix dimensions. The matrix should be square for this kind of operations.");
                             waitUserResponse();
                             continue;
                         }
-                        
+            
                         System.out.println("The determinant is equal to:");
                         System.out.println(determinant(matrixA));
-                        
-                        break;
+            
                     }
-                    case "6": {
-                        
+                    case "6" -> {
+            
                         if (!inputSquareMatrix()) {
                             System.out.println("Wrong matrix dimensions. The matrix should be square for this kind of operations.");
                             waitUserResponse();
                             continue;
                         }
-                        
+            
                         System.out.println("The inverse matrix is:");
                         outputMatrix(inverse(matrixA));
-                        
-                        break;
+            
                     }
-                    case "q":
+                    case "q" -> {
                         System.out.println();
                         System.out.println("Bye-bye");
                         System.out.println();
                         System.exit(0);
-                    default:
-                        System.out.println("No such operation.");
+                    }
+                    default -> System.out.println("No such operation.");
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("Wrong input. Maybe mistyping? Try again.");
