@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import static matrix.math.Matrix2D.*;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class App {
     
     private static final Scanner scanner = new Scanner(System.in);
